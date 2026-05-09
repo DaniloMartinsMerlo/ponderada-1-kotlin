@@ -16,7 +16,16 @@ A aplicação original possuía dois problemas:
 ## O que foi corrigido e implementado
 
 ### Correção do erro lógico
-O intervalo do `Random.nextInt` foi ajustado para incluir corretamente o valor mínimo (1) e o máximo de cada dado:
+O intervalo do `Random.nextInt` foi ajustado para incluir corretamente o valor mínimo (1) e o máximo do D6:
+
+```kotlin
+"D6" -> Random.nextInt(1, 7)
+```
+
+`Random.nextInt(from, until)` gera um número aleatório no intervalo fechado no início e aberto no final, ou seja, inclui o `from` mas não inclui o `until`. Por isso, para um D6 que deve retornar valores de 1 a 6, passamos `nextInt(1, 7)` onde o 1 é incluído, o 7 não. O código original usava `nextInt(6)`, que gera valores de 0 a 5, errando tanto o limite inferior quanto o superior.
+
+### Adição dos novos dados
+A lista de dados foi expandida para incluir D10, D20 e D100, com RadioButtons para seleção na interface. Os intervalos corretos foram definidos para cada tipo:
 
 ```kotlin
 "D6"   -> Random.nextInt(1, 7)
@@ -24,11 +33,6 @@ O intervalo do `Random.nextInt` foi ajustado para incluir corretamente o valor m
 "D20"  -> Random.nextInt(1, 21)
 "D100" -> Random.nextInt(1, 101)
 ```
-
-`Random.nextInt(from, until)` gera um número aleatório no intervalo fechado no início e aberto no final, ou seja, inclui o `from` mas não inclui o `until`. Por isso, para um D6 que deve retornar valores de 1 a 6, passamos `nextInt(1, 7)` onde o 1 é incluído, o 7 não. O código original usava `nextInt(6)`, que gera valores de 0 a 5, errando tanto o limite inferior quanto o superior.
-
-### Adição dos novos dados
-A lista de dados foi expandida para incluir D6, D10, D20 e D100, com RadioButtons para seleção na interface.
 
 ### Exibição do resultado via `when`
 Um bloco `when` trata cada tipo de dado e gera o valor aleatório correto ao clicar no botão.
@@ -79,7 +83,7 @@ Para implementar as imagens, foi utilizado o codelab oficial do Android como ref
 
 O material cobre como adicionar imagens à pasta `drawable`, acessá-las via `painterResource(R.drawable.*)`, e exibi-las com o elemento combinável `Image` dentro de um layout `Box`.
 
-O uso de inteligência artificial ficou restrito a um ponto específico: entender como centralizar o texto do valor sorteado sobre o centro da imagem do dado. Tentamos inicialmente usar `Alignment.Center` diretamente no componente Text, o que não funcionou como esperado. A partir disso, pedimos ajuda à IA, o que nos levou ao uso de `contentAlignment = Alignment.Center` no `Box` do composable `DiceImage`.
+O uso de inteligência artificial ficou restrito a um ponto específico: entender como centralizar o texto do valor sorteado sobre o centro da imagem do dado. Antes de recorrer à IA, encontramos duas dificuldades: esquecer de adicionar o `remember` ao estado, o que fazia com que a interface não reagisse às mudanças, e um import incorreto do `R`, que impedia o acesso aos recursos de imagem. Tentamos também usar `Alignment.Center` diretamente no componente `Text`, o que não funcionou como esperado. A partir disso, pedimos ajuda à IA, o que nos levou ao uso de `contentAlignment = Alignment.Center` no `Box` do composable `DiceImage`.
 
 ---
 
