@@ -79,7 +79,7 @@ Para implementar as imagens, foi utilizado o codelab oficial do Android como ref
 
 O material cobre como adicionar imagens à pasta `drawable`, acessá-las via `painterResource(R.drawable.*)`, e exibi-las com o elemento combinável `Image` dentro de um layout `Box`.
 
-O uso de inteligência artificial ficou restrito a um ponto específico: entender como centralizar o texto do valor sorteado sobre o centro da imagem do dado, o que levou ao uso de `contentAlignment = Alignment.Center` no `Box` do composable `DiceImage`.
+O uso de inteligência artificial ficou restrito a um ponto específico: entender como centralizar o texto do valor sorteado sobre o centro da imagem do dado. Tentamos inicialmente usar `Alignment.Center` diretamente no componente Text, o que não funcionou como esperado. A partir disso, pedimos ajuda à IA, o que nos levou ao uso de `contentAlignment = Alignment.Center` no `Box` do composable `DiceImage`.
 
 ---
 
